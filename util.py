@@ -62,3 +62,29 @@ def end():
     print()
     exit()
     
+def display_menu_options(options, per_line=1):
+    """
+    Print a set of options with per_line items per line.
+
+    Menu options on the same line will be separated by
+    a vertical bar |
+    """
+    width = max([len(s) for s in options])
+
+    formatted_options = [
+        o + ' '*(width - len(o))
+        for o in options
+    ]
+
+    # Enumerate says to provide a list of pairs, (index, value)
+    # So we are iterating with variables i as the index, and
+    # option as the actual value from the list
+    result = ''
+    for i, option in enumerate(formatted_options):
+        # index starts at zero, so add 1
+        final_on_line = (i+1) % per_line == 0
+        suffix = '\n' if final_on_line else ' | '
+        result += option + suffix
+
+    print(result)
+

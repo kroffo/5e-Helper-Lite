@@ -103,6 +103,9 @@ def view_racial_bonuses():
 
 
 def run_name_generator():
+    """
+    Run the name generator function in a prompt loop
+    """
     prompt_loop_with_function(
         func=name_generator.give_name,
         prompt='Would you like to generate another name?'
@@ -110,6 +113,9 @@ def run_name_generator():
 
 
 def run_ability_score_roller():
+    """
+    Run the ability score roller function in a prompt loop
+    """
     prompt_loop_with_function(
         func=ability_roller.ability_scores,
         prompt='Would you like to use the ability score helper again?'
@@ -117,6 +123,9 @@ def run_ability_score_roller():
 
 
 def exit_program():
+    """
+    Print a message of appreciation and exit the program
+    """
     print('\n'
           '===========================================\n'
           '\n'

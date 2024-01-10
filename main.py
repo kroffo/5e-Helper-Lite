@@ -6,86 +6,137 @@ import ability_roller
 
 
 def main():
-    util.intro()
+    #util.intro()
     display_menu()
 
 
 def display_menu():
-    print('MENU')
-    print('------------------------')
-    print('1. Dice Roller')
-    print('2. View Racial Bonuses')
-    print('3. Name Generator')
-    print('4. Ability Score Roller')
-    print('5. Character Creator')
-    print('6. Quit Program')
-    print()
-    menu_choice = ''
-    menu_choice = input('Enter the number of the program you would like to use: ')
-    if menu_choice == '6':
-        print()
-        print('===========================================')
-        print()
-        print('Thank you for using the D&D 5e Helper Lite!')
-        print('Happy adventuring!')
-        print()
-        print('===========================================')
-        print()
-        exit()
+    """
+    Display the menu options and execute the requested action
+    repeatedly until the user enters the exit command.
+    """
+    menu = (
+           'MENU\n'
+           '------------------------\n'
+           '1. Dice Roller\n'
+           '2. View Racial Bonuses\n'
+           '3. Name Generator\n'
+           '4. Ability Score Roller\n'
+           '5. Character Creator\n'
+           '6. Quit Program\n'
+           '\n'
+    )
+    print(menu)
+
+    prompt = 'Enter the number of the program you would like to use: '
+    menu_choice = input(prompt)
     while menu_choice != '6':
         if menu_choice == '1':
-            dice.dice_roller()
-            roll_again = ''
-            while roll_again != 'n':
-                roll_again = input('Would you like to roll again? (y/n)')
-                if str.lower(roll_again) == 'y':
-                    dice.dice_roller()
-                elif str.lower(roll_again) == 'n':
-                    print()
-                    display_menu()
-                    break
+            run_dice_roller()
         elif menu_choice == '2':
-            util.race_bonuses()
-            menu = ''
-            while menu != 'M':
-                print()
-                menu = input('Type "M" to return to the menu. ')
-                if str.lower(menu) == 'm':
-                    print()
-                    display_menu()
-                    break
-                else:
-                    print('INVALID INPUT')
+            view_racial_bonuses()
         elif menu_choice == '3':
-            name_generator.give_name()
-            another_name = ''
-            while another_name != 'n':
-                another_name = input('Would you like to roll again? (y/n)')
-                if str.lower(another_name) == 'y':
-                    name_generator.give_name()
-                elif str.lower(another_name) == 'n':
-                    print()
-                    display_menu()
-                    break
-                else:
-                    print('INVALID INPUT')
-                    print()
+            run_name_generator()
         elif menu_choice == '4':
-            ability_roller.ability_scores()
-            repeat = ''
-            while repeat != 'n':
-                repeat = input('Would you like to use the ability score helper again? (y/n) ')
-                if str.lower(repeat) == 'y':
-                    ability_roller.ability_scores()
-                elif str.lower(repeat) == 'n':
-                    print()
-                    display_menu()
-                    break
+            run_ability_score_roller()
+        elif menu_choice == '5':
+            warn_not_implemented('Character Creator')
+        else:
+            print('INVALID INPUT\n')
+
+        print('\n===========================================\n')
+        menu_choice = input(prompt)
+
+    exit_program()
+
+
+def warn_not_implemented(feature_name):
+    """
+    Print a generic feature-not-implemented message
+    for a given feature
+    """
+    print(
+        f'\nThank you for your interest in the {feature_name}.\n'
+        'Unfortunately this feature has not yet been implemented\n'
+        '\n'
+        'Please try again soon :(\n'
+    )
+
+
+def prompt_loop_with_function(func, prompt):
+    """
+    Enter a loop executing a function repeatedly
+    while prompting the user to continue or exit
+    after each run.
+
+    prompt should be the string message to print
+    excluding the " (y/n): " suffix
+    """
+    rerun = 'y'
+    while rerun != 'n':
+        if rerun == 'y':
+            func()
         else:
             print('INVALID INPUT')
-            print()
-            display_menu()
-            break
+
+        rerun = input(f'{prompt} (y/n): ')
 
 
-main()
+
+def run_dice_roller():
+    """
+    Run the dice roller repeatedly until the user
+    enters a response other than 'y' when prompted
+    to roll again
+    """
+    prompt_loop_with_function(
+        func=dice.dice_roller,
+        prompt='Would you like to roll again?'
+    )
+
+
+def view_racial_bonuses():
+    """
+    Display racial bonuses to the user
+    """
+    util.race_bonuses()
+
+
+def run_name_generator():
+    """
+    Run the name generator function in a prompt loop
+    """
+    prompt_loop_with_function(
+        func=name_generator.give_name,
+        prompt='Would you like to generate another name?'
+    )
+
+
+def run_ability_score_roller():
+    """
+    Run the ability score roller function in a prompt loop
+    """
+    prompt_loop_with_function(
+        func=ability_roller.ability_scores,
+        prompt='Would you like to use the ability score helper again?'
+    )
+
+
+def exit_program():
+    """
+    Print a message of appreciation and exit the program
+    """
+    print('\n'
+          '===========================================\n'
+          '\n'
+          'Thank you for using the D&D 5e Helper Lite!\n'
+          'Happy adventuring!\n'
+          '\n'
+          '===========================================\n'
+          '\n'
+      )
+    exit()
+
+
+if __name__ == '__main__':
+    main()

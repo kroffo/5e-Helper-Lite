@@ -137,4 +137,6 @@ def exit_program():
       )
     exit()
 
-main()
+
+if __name__ == '__main__':
+    main()

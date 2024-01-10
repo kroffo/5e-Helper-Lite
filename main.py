@@ -6,11 +6,15 @@ import ability_roller
 
 
 def main():
-    util.intro()
+    #util.intro()
     display_menu()
 
 
 def display_menu():
+    """
+    Display the menu options and execute the requested action
+    repeatedly until the user enters the exit command.
+    """
     menu = (
            'MENU\n'
            '------------------------\n'
@@ -24,64 +28,74 @@ def display_menu():
     )
     print(menu)
 
-    menu_choice = ''
-    menu_choice = input('Enter the number of the program you would like to use: ')
-    if menu_choice == '6':
-        exit_program()
+    prompt = 'Enter the number of the program you would like to use: '
+    menu_choice = input(prompt)
     while menu_choice != '6':
         if menu_choice == '1':
-            dice.dice_roller()
-            roll_again = ''
-            while roll_again != 'n':
-                roll_again = input('Would you like to roll again? (y/n): ')
-                if str.lower(roll_again) == 'y':
-                    dice.dice_roller()
-                elif str.lower(roll_again) == 'n':
-                    print()
-                    display_menu()
-                    break
+            run_dice_roller()
         elif menu_choice == '2':
-            util.race_bonuses()
-            menu = ''
-            while menu != 'M':
-                print()
-                menu = input('Type "M" to return to the menu. ')
-                if str.lower(menu) == 'm':
-                    print()
-                    display_menu()
-                    break
-                else:
-                    print('INVALID INPUT')
+            view_racial_bonuses()
         elif menu_choice == '3':
-            name_generator.give_name()
-            another_name = ''
-            while another_name != 'n':
-                another_name = input('Would you like to roll again? (y/n): ')
-                if str.lower(another_name) == 'y':
-                    name_generator.give_name()
-                elif str.lower(another_name) == 'n':
-                    print()
-                    display_menu()
-                    break
-                else:
-                    print('INVALID INPUT')
-                    print()
+            run_name_generator()
         elif menu_choice == '4':
-            ability_roller.ability_scores()
-            repeat = ''
-            while repeat != 'n':
-                repeat = input('Would you like to use the ability score helper again? (y/n): ')
-                if str.lower(repeat) == 'y':
-                    ability_roller.ability_scores()
-                elif str.lower(repeat) == 'n':
-                    print()
-                    display_menu()
-                    break
+            run_ability_score_roller()
+        elif menu_choice == '5':
+            warn_not_implemented('Character Creator')
         else:
-            print('INVALID INPUT')
-            print()
-            display_menu()
-            break
+            print('INVALID INPUT\n')
+
+        print('\n===========================================\n')
+        menu_choice = input(prompt)
+
+    exit_program()
+
+
+def warn_not_implemented(feature_name):
+    """
+    Print a generic feature-not-implemented message
+    for a given feature
+    """
+    print(
+        f'Thank you for your interest in the {feature_name}.\n'
+        'Unfortunately this feature has not yet been implemented\n'
+        '\n'
+        'Please try again soon :(\n'
+        '\n'
+    )
+
+
+def run_dice_roller():
+    """
+    Run the dice roller repeatedly until the user
+    enters a response other than 'y' when prompted
+    to roll again
+    """
+    rerun = 'y'
+    while rerun == 'y':
+        dice.dice_roller()
+        rerun = input('Would you like to roll again? (y/n): ')
+
+
+def view_racial_bonuses():
+    """
+    Display racial bonuses to the user
+    """
+    util.race_bonuses()
+
+
+def run_name_generator():
+    rerun = 'y'
+    while rerun == 'y':
+        name_generator.give_name()
+        rerun = input('Would you like to roll again? (y/n): ')
+
+
+def run_ability_score_roller():
+    rerun = 'y'
+    while rerun == 'y':
+        ability_roller.ability_scores()
+        rerun = input('Would you like to use the ability score helper again? (y/n): ')
+
 
 def exit_program():
     print('\n'

@@ -56,12 +56,31 @@ def warn_not_implemented(feature_name):
     for a given feature
     """
     print(
-        f'Thank you for your interest in the {feature_name}.\n'
+        f'\nThank you for your interest in the {feature_name}.\n'
         'Unfortunately this feature has not yet been implemented\n'
         '\n'
         'Please try again soon :(\n'
-        '\n'
     )
+
+
+def prompt_loop_with_function(func, prompt):
+    """
+    Enter a loop executing a function repeatedly
+    while prompting the user to continue or exit
+    after each run.
+
+    prompt should be the string message to print
+    excluding the " (y/n): " suffix
+    """
+    rerun = 'y'
+    while rerun != 'n':
+        if rerun == 'y':
+            func()
+        else:
+            print('INVALID INPUT')
+
+        rerun = input(f'{prompt} (y/n): ')
+
 
 
 def run_dice_roller():
@@ -70,10 +89,10 @@ def run_dice_roller():
     enters a response other than 'y' when prompted
     to roll again
     """
-    rerun = 'y'
-    while rerun == 'y':
-        dice.dice_roller()
-        rerun = input('Would you like to roll again? (y/n): ')
+    prompt_loop_with_function(
+        func=dice.dice_roller,
+        prompt='Would you like to roll again?'
+    )
 
 
 def view_racial_bonuses():
@@ -84,17 +103,17 @@ def view_racial_bonuses():
 
 
 def run_name_generator():
-    rerun = 'y'
-    while rerun == 'y':
-        name_generator.give_name()
-        rerun = input('Would you like to roll again? (y/n): ')
+    prompt_loop_with_function(
+        func=name_generator.give_name,
+        prompt='Would you like to generate another name?'
+    )
 
 
 def run_ability_score_roller():
-    rerun = 'y'
-    while rerun == 'y':
-        ability_roller.ability_scores()
-        rerun = input('Would you like to use the ability score helper again? (y/n): ')
+    prompt_loop_with_function(
+        func=ability_roller.ability_scores,
+        prompt='Would you like to use the ability score helper again?'
+    )
 
 
 def exit_program():

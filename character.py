@@ -88,3 +88,20 @@ class Character:
 
     def set_cha(self, cha):
         self.cha = cha
+
+    def set_attributes(self, race):
+        self.set_race(race.name)
+        self.set_str(race.scores[0])
+        self.set_dex(race.scores[1])
+        self.set_con(race.scores[2])
+        self.set_inte(race.scores[3])
+        self.set_wis(race.scores[4])
+        self.set_cha(race.scores[5])
+        self.set_vision(race.vision)
+        self.set_size(race.size)
+        self.set_languages(race.languages)
+        self.set_speed(race.speed)
+        self.set_r_traits(race.r_traits)
+        self.set_subr_traits(race.subr_traits)
+        self.set_combat_prof(race.combat_prof)
+        self.set_tool_prof(race.tool_prof)

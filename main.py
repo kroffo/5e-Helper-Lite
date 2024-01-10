@@ -11,33 +11,29 @@ def main():
 
 
 def display_menu():
-    print('MENU')
-    print('------------------------')
-    print('1. Dice Roller')
-    print('2. View Racial Bonuses')
-    print('3. Name Generator')
-    print('4. Ability Score Roller')
-    print('5. Character Creator')
-    print('6. Quit Program')
-    print()
+    menu = (
+           'MENU\n'
+           '------------------------\n'
+           '1. Dice Roller\n'
+           '2. View Racial Bonuses\n'
+           '3. Name Generator\n'
+           '4. Ability Score Roller\n'
+           '5. Character Creator\n'
+           '6. Quit Program\n'
+           '\n'
+    )
+    print(menu)
+
     menu_choice = ''
     menu_choice = input('Enter the number of the program you would like to use: ')
     if menu_choice == '6':
-        print()
-        print('===========================================')
-        print()
-        print('Thank you for using the D&D 5e Helper Lite!')
-        print('Happy adventuring!')
-        print()
-        print('===========================================')
-        print()
-        exit()
+        exit_program()
     while menu_choice != '6':
         if menu_choice == '1':
             dice.dice_roller()
             roll_again = ''
             while roll_again != 'n':
-                roll_again = input('Would you like to roll again? (y/n)')
+                roll_again = input('Would you like to roll again? (y/n): ')
                 if str.lower(roll_again) == 'y':
                     dice.dice_roller()
                 elif str.lower(roll_again) == 'n':
@@ -60,7 +56,7 @@ def display_menu():
             name_generator.give_name()
             another_name = ''
             while another_name != 'n':
-                another_name = input('Would you like to roll again? (y/n)')
+                another_name = input('Would you like to roll again? (y/n): ')
                 if str.lower(another_name) == 'y':
                     name_generator.give_name()
                 elif str.lower(another_name) == 'n':
@@ -74,7 +70,7 @@ def display_menu():
             ability_roller.ability_scores()
             repeat = ''
             while repeat != 'n':
-                repeat = input('Would you like to use the ability score helper again? (y/n) ')
+                repeat = input('Would you like to use the ability score helper again? (y/n): ')
                 if str.lower(repeat) == 'y':
                     ability_roller.ability_scores()
                 elif str.lower(repeat) == 'n':
@@ -87,5 +83,16 @@ def display_menu():
             display_menu()
             break
 
+def exit_program():
+    print('\n'
+          '===========================================\n'
+          '\n'
+          'Thank you for using the D&D 5e Helper Lite!\n'
+          'Happy adventuring!\n'
+          '\n'
+          '===========================================\n'
+          '\n'
+      )
+    exit()
 
 main()
